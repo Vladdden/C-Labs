@@ -66,7 +66,7 @@ namespace lab4
         //1. Даны два массива A и B. Определить которых из них имеет больший диапазон, т.е. разницу между самым большим и самым меньшим значением.
         static void MaxRangeAB()
         {
-            Console.WriteLine("Введите длину масива А (количество элементов)");
+            Console.WriteLine("Введите длину массива А (количество элементов)");
             int length = Convert.ToInt32(Console.ReadLine());
             int[] A = new int [length];
             for (int i = 0; i < length; i++)
@@ -81,7 +81,7 @@ namespace lab4
                 if (A[i] > maxA) maxA = A[i];
             }
             
-            Console.WriteLine("Введите длину масива B (количество элементов)");
+            Console.WriteLine("Введите длину массива B (количество элементов)");
             length = Convert.ToInt32(Console.ReadLine());
             int[] B = new int [length];
             for (int i = 0; i < length; i++)
@@ -104,7 +104,7 @@ namespace lab4
         //элемент BK равен сумме элементов массива A с номерами от 1 до K
         static void ArraySumBK()
         {
-            Console.WriteLine("Введите длину масива А (количество элементов)");
+            Console.WriteLine("Введите длину массива А (количество элементов)");
             int N = Convert.ToInt32(Console.ReadLine());
             int[] A = new int [N];
             for (int i = 0; i < N; i++)
@@ -130,7 +130,7 @@ namespace lab4
         //эти массивы так, чтобы результирующий массив C остался упорядоченным по возрастанию
         static void MasssiveSortMinToMax()
         {
-            Console.WriteLine("Введите длину масива А (количество элементов)");
+            Console.WriteLine("Введите длину массива А (количество элементов)");
             int length = Convert.ToInt32(Console.ReadLine());
             int[] A = new int [length];
             for (int i = 0; i < length; i++)
@@ -154,7 +154,7 @@ namespace lab4
                 }
                 
             }
-            Console.WriteLine("Введите длину масива B (количество элементов)");
+            Console.WriteLine("Введите длину массива B (количество элементов)");
             length = Convert.ToInt32(Console.ReadLine());
             int[] B = new int [length];
             for (int i = 0; i < length; i++)
@@ -199,7 +199,7 @@ namespace lab4
         //Распечатать те элементы массива В, которых нет в массиве А.
         static void AnotB()
         {
-            Console.WriteLine("Введите длину масива А (количество элементов)");
+            Console.WriteLine("Введите длину массива А (количество элементов)");
             int length = Convert.ToInt32(Console.ReadLine());
             int[] A = new int [length];
             for (int i = 0; i < length; i++)
@@ -208,7 +208,7 @@ namespace lab4
                 A[i] = Convert.ToInt32(Console.ReadLine());
             }
 
-            Console.WriteLine("Введите длину масива B (количество элементов)");
+            Console.WriteLine("Введите длину массива B (количество элементов)");
             length = Convert.ToInt32(Console.ReadLine());
             int[] B = new int [length];
             for (int i = 0; i < length; i++)
@@ -244,7 +244,7 @@ namespace lab4
         //серии — количество этих элементов (длина серии может быть равна 1).
         static void ArrayPP()
         {
-            Console.WriteLine("Введите длину масива (количество элементов)");
+            Console.WriteLine("Введите длину массива (количество элементов)");
             int N = Convert.ToInt32(Console.ReadLine());
             int[] A = new int [N+1];
             for (int i = 0; i < N; i++)
@@ -277,7 +277,7 @@ namespace lab4
         //встречающиеся ровно два раза, и вывести размер полученного массива и его содержимое.
         static void ArrayNoTwoNum()
         {
-            Console.WriteLine("Введите длину масива (количество элементов)");
+            Console.WriteLine("Введите длину массива (количество элементов)");
             int N = Convert.ToInt32(Console.ReadLine());
             int[] A = new int [N+1];
             for (int i = 0; i < N; i++)

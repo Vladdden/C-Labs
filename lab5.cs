@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 /*
 1 Написать программу, выводящею на экран одномерный и двумерный
 массив чисел соответственно (одномерный — в виде строки, двумерный — в
@@ -123,7 +123,6 @@ namespace lab5
         static void MinMaxAverage()
         {
             int min, max, sum = 0;
-            float average;
             Random rnd = new Random(); //Создание объекта для генерации чисел
             Console.WriteLine("Введите длину массива (количество элементов)");
             int N = Convert.ToInt32(Console.ReadLine());
@@ -489,7 +488,6 @@ namespace lab5
                 for (int j = 0; j < A.GetLength(1); j++) Console.Write($"{A[i,j]} ");
                 Console.WriteLine();
             }
-            Console.WriteLine("Результат:");
         }
     }
 }

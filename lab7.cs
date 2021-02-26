@@ -57,7 +57,7 @@ namespace lab7
                 switch (choise)
                 {
                     case "1":
-                        //PrintArray();
+                        ChangeFirstAndLastWords();
                         break;
                     case "2":
                         MaxValue();
@@ -83,18 +83,39 @@ namespace lab7
             }
         }
         //Найти предложения содержащие слова А и поменять в них первое и последнее слово. А – вводиться пользователем.
-        static void ChangeFirstAndLast(){
+        static void ChangeFirstAndLastWords(){
             Console.Write("Введите строку: ");
             string str = Console.ReadLine();
-            
+            Console.Write("Введите слово А: ");
+            string A_word = Console.ReadLine();
+            string[] sentences = str.Split(new char[] {'!', '.', '?'}, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < sentences.Length; i++)
+            {
+                string[] words = sentences[i].Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                if (sentences[i].Contains(A_word))
+                {
+                    string temp = words[0];
+                    int IndexFirst = sentences[i].IndexOf(words[0]);
+                    sentences[i] = sentences[i].Remove(IndexFirst, temp.Length).Insert(IndexFirst, words[words.Length-1]);
+                    int IndexLast = sentences[i].LastIndexOf(words[words.Length-1]);
+                    sentences[i] = sentences[i].Remove(IndexLast, words[words.Length-1].Length).Insert(IndexLast, temp);
+                    Console.WriteLine(sentences[i]);
+                }
+            }
         }
         //Найти предложения, содержащие максимальное количество знаков пунктуации.
         static void MaxValue(){
             Console.Write("Введите строку: ");
             string str = Console.ReadLine();
-            int count = 0, dot_count = 0;
-            for (int i = 0; i < str.Length; i++) if (str[i] == '.') dot_count++;
-            int[,] value = new int[dot_count, 1];
+            int count = 0;
+            string[] sentences = str.Split(new char[] {'!', '.', '?'}, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < sentences.Length; i++)
+            {
+            }
+
+            /*
+            for (int i = 0; i < str.Length; i++) if (str[i] == '.' || str[i] == '?' || str[i] == '!') dot_count++;
+            int[,] value = new int[dot_count, 0];
             dot_count = 0;
             for (int i = 0; i < str.Length && dot_count < value.GetLength(0); i++)
             {
@@ -113,7 +134,7 @@ namespace lab7
                     dot_count++;
                 }
             }
-
+            */
         }
         //Найти и заменить знаки препинания (. , ? ! и т.д.) словами «точка», «запятая», «вопросительный знак» и т.д..
         static void SignToWord(){

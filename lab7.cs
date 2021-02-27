@@ -1,39 +1,6 @@
 using System;
 using System.Text;
 
-/*
-1. Найти предложения содержащие слова А и поменять в них
-первое и последнее слово. А – вводиться пользователем.
-2. Найти предложения, содержащие максимальное количество
-знаков пунктуации.
-3. Найти и заменить знаки препинания (. , ? ! и т.д.) словами
-«точка», «запятая», «вопросительный знак» и т.д..
-4. Найти и заменить слова «ноль», «один» …«девять», цифрами от 0
-до 9.
-5. Определить, сколько в тексте слов, состоящих не более чем из N
-букв. N – вводиться пользователем.
-6. Найти предложения, состоящие из N слов. N – вводиться
-пользователем. 
- */
-/*
-StringBuilder sb = new StringBuilder("Привет мир");
-sb.Append("!");
-sb.Insert(7, "компьютерный ");
-Console.WriteLine(sb);
- 
-// заменяем слово
-sb.Replace("мир", "world");
-Console.WriteLine(sb);
- 
-// удаляем 13 символов, начиная с 7-го
-sb.Remove(7, 13);
-Console.WriteLine(sb);
- 
-// получаем строку из объекта StringBuilder
-string s = sb.ToString();
-Console.WriteLine(s);
-Console.WriteLine(s);
- */
 namespace lab7
 {
     class Program
@@ -69,10 +36,10 @@ namespace lab7
                         NumberToWord();
                         break;
                     case "5":
-                        //Spiral();
+                        NoMoreLetters();
                         break;
                     case "6":
-                        //FourBlocks();
+                        NWordsSentences();
                         break;
                     case "0":
                         break;
@@ -107,47 +74,54 @@ namespace lab7
         static void MaxValue(){
             Console.Write("Введите строку: ");
             string str = Console.ReadLine();
-            int count = 0;
+            int max = 0, number = 0;
             string[] sentences = str.Split(new char[] {'!', '.', '?'}, StringSplitOptions.RemoveEmptyEntries);
+            int[] array = new int[sentences.Length];
             for (int i = 0; i < sentences.Length; i++)
             {
-            }
-
-            /*
-            for (int i = 0; i < str.Length; i++) if (str[i] == '.' || str[i] == '?' || str[i] == '!') dot_count++;
-            int[,] value = new int[dot_count, 0];
-            dot_count = 0;
-            for (int i = 0; i < str.Length && dot_count < value.GetLength(0); i++)
-            {
-                if (str[i] == ',') count++;
-                if (str[i] == ':') count++;
-                if (str[i] == ';') count++;
-                if (str[i] == '-') count++;
-                if (str[i] == '(') count++;
-                if (str[i] == ')') count++;
-                if (str[i] == '"') count++;
-                if (str[i] == '\'') count++;
-                if (str[i] == '.' || str[i] == '?' || str[i] == '!')
+                int count = 0;
+                foreach (char letter in sentences[i])
                 {
-                    value[dot_count, 0] = count;
-                    count = 0;
-                    dot_count++;
+                    if (letter == ',') count++;
+                    if (letter == ':') count++;
+                    if (letter == ';') count++;
+                    if (letter == '-') count++;
+                    if (letter == '(') count++;
+                    if (letter == ')') count++;
+                    if (letter == '"') count++;
+                    if (letter == '\'') count++;
+                }
+                array[i] = count;
+            }
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > max)
+                {
+                    max = array[i];
+                    number = i;
                 }
             }
-            */
+            Console.WriteLine($"Результат: {number + 1} предложение содержит максимальное количество знаков пунктуации - {max}");
         }
+        
         //Найти и заменить знаки препинания (. , ? ! и т.д.) словами «точка», «запятая», «вопросительный знак» и т.д..
         static void SignToWord(){
             Console.Write("Введите строку: ");
             string str = Console.ReadLine();
             StringBuilder sb = new StringBuilder(str);
-            sb.Replace(".", "точка");
-            sb.Replace(",", "запятая");
-            sb.Replace("!", "восклицательный знак");
-            sb.Replace("?", "вопросительный знак");
-            sb.Replace(":", "двоеточие");
-            sb.Replace(";", "точка с запятой");
-            Console.WriteLine(sb);
+            sb.Replace(".", " точка");
+            sb.Replace("...", " многоточие");
+            sb.Replace(",", " запятая");
+            sb.Replace("!", " восклицательный знак");
+            sb.Replace("?", " вопросительный знак");
+            sb.Replace(":", " двоеточие");
+            sb.Replace(";", " точка с запятой");
+            sb.Replace("-", " тире");
+            sb.Replace("(", " открывающая скобка");
+            sb.Replace(")", " закрывающая скобка");
+            sb.Replace("«", " открывающая кавычка");
+            sb.Replace("»", " закрывающая кавычка");
+            Console.WriteLine("Результат: " + sb);
         }
         //Найти и заменить слова «ноль», «один» …«девять», цифрами от 0 до 9.
         static void NumberToWord()
@@ -162,10 +136,59 @@ namespace lab7
             sb.Replace("четыре", "4");
             sb.Replace("пять", "5");
             sb.Replace("шесть", "6");
-            sb.Replace("семь", "7");
             sb.Replace("восемь", "8");
+            sb.Replace("семь", "7");
             sb.Replace("девять", "9");
             Console.WriteLine(sb);
+        }
+        
+        //Определить, сколько в тексте слов, состоящих не более чем из N букв. N – вводиться пользователем.
+        static void NoMoreLetters()
+        {
+            Console.Write("Введите текст: ");
+            string str = Console.ReadLine();
+            Console.Write("Введите N: ");
+            int N_val = Convert.ToInt32(Console.ReadLine());
+            string[] sentences = str.Split(new char[] {'!', '.', '?'}, StringSplitOptions.RemoveEmptyEntries);
+            int count = 0;
+            Console.WriteLine($"Слова, в которых букв меньше, чем N({N_val}):");
+            for (int i = 0; i < sentences.Length; i++)
+            {
+                string[] words = sentences[i].Split(new char[] {' ', '/', '-', '–'}, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string word in words)
+                {
+                    int length = word.Length;
+                    if (word.EndsWith(",")) length--;
+                    if (word.EndsWith(":")) length--;
+                    if (word.EndsWith("-")) length--;
+                    if (word.StartsWith("(")) length--;
+                    if (word.EndsWith(")")) length--;
+                    if (word.StartsWith("«")) length--;
+                    if (word.EndsWith("»")) length--;
+                    if (length < N_val)
+                    {
+                        count++;
+                        Console.WriteLine($"-{word}; Количество букв - {length}");
+                    }
+                }
+            }
+            if (count == 0) Console.WriteLine("Слов с подходящими параметрами не обнаружено!");
+        }
+        
+        //Найти предложения, состоящие из N слов. N – вводиться пользователем.
+        static void NWordsSentences()
+        {
+            Console.Write("Введите текст: ");
+            string str = Console.ReadLine();
+            Console.Write("Введите N: ");
+            int N_val = Convert.ToInt32(Console.ReadLine());
+            string[] sentences = str.Split(new char[] {'!', '.', '?'}, StringSplitOptions.RemoveEmptyEntries);
+            Console.WriteLine($"Предложения, состоящие из N({N_val}) слов:");
+            foreach (string sentence in sentences)
+            {
+                string[] words = sentence.Split(new char[] {' ', '/', '-', '–'}, StringSplitOptions.RemoveEmptyEntries);
+                if (words.Length == N_val) Console.WriteLine(sentence);
+            }
         }
     }
 }

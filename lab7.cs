@@ -13,11 +13,11 @@ using System.Text;
 букв. N – вводиться пользователем.
 6. Найти предложения, состоящие из N слов. N – вводиться
 пользователем. 
-*/
+ */
 
 namespace lab7
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {

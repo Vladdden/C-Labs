@@ -1,7 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Net;
 
 /*
 1 Составить программу, которая создаёт текстовый файл и записывает в
@@ -73,7 +71,7 @@ namespace lab9
         //Составить программу, которая создаёт текстовый файл и записывает в него последовательность целых чисел, вводимую с клавиатуры (признак конца ввода – 999).
         static void No999()
         {
-            string path = $"{Directory.GetCurrentDirectory()}/1.txt"; // !!!!!!!!!! заменить на обратный слэш
+            string path = $"{Directory.GetCurrentDirectory()}\\1.txt";
             File.Create(path).Close();
             string text;
             do
@@ -153,7 +151,99 @@ namespace lab9
         //Информацию записать в одну строчку. Вывести на экран всю информацию об автобусах. Найти автобус по заданному направлению.
         static void BusInfo()
         {
-            
+            string choise = "";
+            string number, timeDepart, destination, timeArrive, arrivePoint, info;
+            string path = $"{Directory.GetCurrentDirectory()}/5.txt"; // !!!!!!!!!! заменить на обратный слэш
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Выберите необходимый пункт (введите его номер):");
+                Console.WriteLine("1. Добавить информацию об автобусе");
+                Console.WriteLine("2. Вывести на экран всю информацию об автобусах");
+                Console.WriteLine("3. Найти автобус по заданному направлению");
+                Console.WriteLine("0. Выйти");
+                Console.Write("Выбор: ");
+                choise = Console.ReadLine();
+                switch (choise)
+                {
+                    case "1":
+                        Console.Write("Введите номер рейса: ");
+                        number = Console.ReadLine();
+                        Console.Write("Введите время отправления: ");
+                        timeDepart = Console.ReadLine();
+                        Console.Write("Введите пункт назначения: ");
+                        destination = Console.ReadLine();
+                        Console.Write("Введите время прибытия: ");
+                        timeArrive = Console.ReadLine();
+                        Console.Write("Введите пункт прибытия: ");
+                        arrivePoint = Console.ReadLine();
+                        info = $"{number};{timeDepart};{destination};{timeArrive};{arrivePoint};";
+                        StreamWriter infoWriter = new StreamWriter(path, true);
+                        infoWriter.WriteLine(info);
+                        infoWriter.Close();
+                        Console.WriteLine("\nИнформация об автобусе успешно записана в файл.");
+                        Console.ReadKey();
+                        break;
+                    case "2":
+                        string text;
+                        Console.WriteLine("|-------------|-------------|------------------|----------------|----------------|");
+                        Console.WriteLine("| {0,11} | {1,11} | {2,16} | {3,14} | {4,14} |", "Номер рейса", "Отправление", "Пункт назначения", "Время прибытия","Пункт Прибытия");
+                        Console.WriteLine("|-------------|-------------|------------------|----------------|----------------|");
+                        StreamReader infoReader = new StreamReader(path);
+                        do
+                        {
+                            text = infoReader.ReadLine();
+                            string[] words = text.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+                            if (words.Length == 5)
+                            {
+                                number = words[0];
+                                timeDepart = words[1];
+                                destination = words[2];
+                                timeArrive = words[3];
+                                arrivePoint = words[4];
+                                Console.WriteLine("| {0,-11} | {1,-11} | {2,-16} | {3,-14} | {4,-14} |", number, timeDepart, destination, timeArrive, arrivePoint);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Данные записаны в неверном формате.");
+                                Console.ReadKey();
+                            }
+                        } while (!infoReader.EndOfStream);
+                        Console.WriteLine("|_____________|_____________|__________________|________________|________________|");
+                        infoReader.Close();
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                        Console.Write("Введите место назначения: ");
+                        string place  = Console.ReadLine();
+                        Console.WriteLine("Вам подойдет: ");
+                        int count = 0;
+                        StreamReader search = new StreamReader(path);
+                        do
+                        {
+                            text = search.ReadLine();
+                            string[] words = text.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+                            if (words.Length == 5)
+                            {
+                                if (words[2].ToLower() == place.ToLower())
+                                {
+                                    count++;
+                                    Console.WriteLine("| {0,-11} | {1,-11} | {2,-16} | {3,-14} | {4,-14} |", words[0], words[1], words[2], words[3], words[4]);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Данные записаны в неверном формате.");
+                                Console.ReadKey();
+                            }
+                        } while (!search.EndOfStream);
+                        if (count == 0) Console.WriteLine("Подходящие автобусы не найдены.");
+                        Console.ReadKey();
+                        break;
+                    case "0":
+                        break;
+                }
+            } while (choise != "0");
         }
     }
 }
